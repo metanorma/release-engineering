@@ -27,9 +27,37 @@ unambiguous):
 | `/wave-report v<prev> v<wave>` | ledger + changelog tracker comments |
 | `/release-status` | read-only "where are we" state report |
 
-Authorization stays human regardless of skill: version numbers,
-go/no-go on releases, and anything irreversible are owner decisions the
-skills are written to enforce.
+### When to use what
+
+| Situation | Use |
+|---|---|
+| The owner orders the next release wave and states the version | `/release <version>` |
+| Prove the flow works before trusting it with a real wave, or after editing the docs | `/release-smoke [version]` |
+| "Does this flavor render on the released stack?" — one repo, full gate evidence | `/samples-gate <repo>` (e.g. `/samples-gate iho`; several: `/samples-gate iso iho`; whole roster: `/samples-gate --full`) |
+| A release just shipped and someone reports confusion about what is out | `/release-verify <version>` (e.g. `/release-verify 1.18.6`) |
+| A wave is closing: the tracker needs its two standing comments | `/wave-report v<prev> v<wave> [tracker-url]` (e.g. `/wave-report v1.18.5 v1.18.6`) |
+| "What would the next wave carry? Is anything blocking?" | `/release-status` |
+
+Typical cycle: `/release-status` to scope the wave → `/release <version>`
+to run it → `/wave-report` at close-out → `/release-verify` whenever
+anyone doubts what shipped. `/release-smoke` stands outside the cycle:
+run it before the first real wave on this flow and after every
+substantial edit to the docs or skills.
+
+Standing rules in every skill:
+- Version numbers are owner decisions. Patch = version.rb + 1; anything
+  else waits for an explicit number, always.
+- The skills never release gems owned by other orgs (relaton, fontist,
+  glossarist, pubid, tebako slices) — they file requests there instead.
+- Anything irreversible (tag deletion, force-pushes, dependency floors)
+  stops and asks first.
+- Nothing is reported as done without evidence; nothing is closed
+  without verification.
+
+`/release` additionally refuses to run without an explicit target
+version, and `/samples-gate` refuses a lone-flavor result while any
+tier-1 lib has unreleased main-ahead work — that combination does not
+predict released behavior.
 
 ## Start here (without the plugin)
 
