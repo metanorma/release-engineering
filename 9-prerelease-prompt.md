@@ -13,7 +13,7 @@ are read first, and both enforce the same standing rules as
 ```
 MAKE THE NEXT METANORMA-CLI PRE-RELEASE (Act 2 of the staged program)
 
-Clone https://github.com/metanorma/release-process anywhere (skip if you
+Clone https://github.com/metanorma/release-engineering anywhere (skip if you
 already hold a checkout); `<RELEASE-PROCESS>` below is its path. Read
 `<RELEASE-PROCESS>/README.md`, docs 1-6, and
 3-release-wave.md § "Staged release program". Then execute Act 2

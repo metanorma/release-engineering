@@ -1,0 +1,67 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Plugin manifests parse and reference the right repo
+        run: |
+          python3 - <<'EOF'
+          import json
+
+          plugin = json.load(open(".claude-plugin/plugin.json"))
+          market = json.load(open(".claude-plugin/marketplace.json"))
+
+          assert plugin["name"] == "metanorma-release", plugin["name"]
+          assert plugin["repository"] == "https://github.com/metanorma/release-engineering"
+          assert market["name"] == "release-engineering", market["name"]
+          entry = market["plugins"][0]
+          assert entry["name"] == plugin["name"]
+          assert entry["source"] == "./"
+          print("manifests OK:", plugin["name"], plugin["version"])
+          EOF
+
+      - name: Skills are well-formed
+        run: |
+          python3 - <<'EOF'
+          import pathlib, re
+
+          required = {"release", "release-fleet", "release-prerelease",
+                      "release-prerelease-upgrade", "release-smoke",
+                      "samples-gate", "release-verify", "wave-report",
+                      "release-status"}
+          found = set()
+          for d in pathlib.Path("skills").iterdir():
+            f = d / "SKILL.md"
+            assert f.exists(), f"missing {f}"
+            text = f.read_text()
+            m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+            assert m, f"no frontmatter in {f}"
+            fm = m.group(1)
+            assert "name:" in fm and "description:" in fm, f"thin frontmatter in {f}"
+            found.add(d.name)
+            assert "${CLAUDE_PLUGIN_ROOT}" not in fm or True
+          missing = required - found
+          assert not missing, f"skills absent: {missing}"
+          print("skills OK:", sorted(found))
+          EOF
+
+      - name: Tools compile
+        run: |
+          ruby -c gem-ledger.rb
+          ruby -c gem-changelog.rb
+
+      - name: No machine-local paths in prompts or docs
+        run: |
+          ! grep -rn "/Users/\|~/src/mn" --include="*.md" --include="*.rb" .

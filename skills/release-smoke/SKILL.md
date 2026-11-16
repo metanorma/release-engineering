@@ -15,7 +15,7 @@ Execute the smoke test exactly as documented in this plugin.
 
 The HARD RULES inside that prompt are absolute: the only permitted
 shared-state writes are the smoke tracker issue and process-gap issues
-in metanorma/release-process itself. No releases, no tags, no docker,
+in metanorma/release-engineering itself. No releases, no tags, no docker,
 no public communications, no reporter-issue activity of any kind.
 
 The deliverable is the closing verdict: would this flow have produced a

@@ -1,4 +1,4 @@
-# metanorma/release-process
+# metanorma/release-engineering
 
 The metanorma release flow: documentation, gates, wave tracker, and tools.
 Everything a maintainer (or an AI agent) needs to run a fully validated
@@ -11,8 +11,8 @@ This repo is also a Claude Code plugin and its own marketplace. Any
 maintainer installs it with:
 
 ```
-/plugin marketplace add metanorma/release-process
-/plugin install metanorma-release@release-process
+/plugin marketplace add metanorma/release-engineering
+/plugin install metanorma-release@release-engineering
 ```
 
 Skills (invoke as `/metanorma-release:<name>`, or bare `/release` when
@@ -121,7 +121,7 @@ version unless they ask for it.
 ## Start here (without the plugin)
 
 **Copy/paste convention (all prompts, one rule):** clone
-`metanorma/release-process` anywhere — the path is yours to choose.
+`metanorma/release-engineering` anywhere — the path is yours to choose.
 Open the prompt doc you need (`7-release-prompt.md` for a full wave,
 `8-smoke-test-prompt.md` for the dry run, `9-prerelease-prompt.md`
 Prompts A/B for the prerelease acts), copy its fenced block into a
@@ -172,6 +172,6 @@ fleet's new floors.
 
 ## Pilot
 
-`release-process#1` is the pilot tracker (the 1.18.6 wave, recorded
+`release-engineering#1` is the pilot tracker (the 1.18.6 wave, recorded
 retroactively). The next real wave opens its tracker in
 metanorma/discussions from `wave-tracker-template.md`.

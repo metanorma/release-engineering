@@ -8,7 +8,7 @@ dispatching anything.
 ```
 SMOKE TEST — DRY RUN of the metanorma release flow (dispatch NOTHING)
 
-Clone https://github.com/metanorma/release-process anywhere (skip if you
+Clone https://github.com/metanorma/release-engineering anywhere (skip if you
 already hold a checkout); `<RELEASE-PROCESS>` below is its path. Read
 `<RELEASE-PROCESS>/README.md`, then docs 1-6 in order, then
 execute the fenced prompt in 7-release-prompt.md under the overrides
@@ -24,11 +24,11 @@ HARD RULES (in addition to the prompt's RULES):
 - No public communications: nothing in metanorma/discussions, no blog
   post, no comments on reporter or user issues, no issue closures.
 - The ONLY permitted shared-state writes: the smoke tracker issue
-  (step 0) and process-gap issues in metanorma/release-process itself.
+  (step 0) and process-gap issues in metanorma/release-engineering itself.
 - Anything the docs prescribe that would touch shared state and is not
   allowed above: SKIP it, and record the skip on the tracker.
 
-STEP 0 — TRACKER: open ONE issue in metanorma/release-process titled
+STEP 0 — TRACKER: open ONE issue in metanorma/release-engineering titled
 "[smoke] 1.18.7 dry run — <today's date>". Build its body from
 wave-tracker-template.md. Keep the mermaid stage classes and checkboxes
 in sync at every gate, exactly as a real wave would.
@@ -58,7 +58,7 @@ TIERS:
 
 CLOSE: close the smoke issue with a one-comment verdict: what the flow
 got right, every gap or ambiguity hit in the docs (file ONE issue per
-gap in metanorma/release-process), and the straight answer: would this
+gap in metanorma/release-engineering), and the straight answer: would this
 flow have produced a correct, complete, verifiable release?
 
 DONE WHEN the smoke issue shows: the synced tracker (mermaid states),

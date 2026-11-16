@@ -1,7 +1,7 @@
 # 7 — The release prompt (paste-ready for the next validated release)
 
 Run the wave from a clean clone-per-repo posture. The prompts in this
-repo are location-independent: clone `metanorma/release-process`
+repo are location-independent: clone `metanorma/release-engineering`
 anywhere (or use an existing checkout); below, `<RELEASE-PROCESS>` is
 that checkout's path, and the prompt reads its docs `{1-6}.md` from
 there.
@@ -87,7 +87,7 @@ TIERS:
       flag it on the tracker.
 7. Close-out: downstream issue posts (per-issue, independent), reporter
    per-issue confirmations with release pointers + verification evidence,
-   release-process docs + memory update, final report with every version
+   release-engineering docs + memory update, final report with every version
    and every PR.
 
 FULL PROPER REPORT (mandatory Tier-6 deliverable, posted where the
