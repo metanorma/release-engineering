@@ -1,0 +1,11 @@
+{
+  "name": "metanorma-release",
+  "version": "1.0.0",
+  "description": "Metanorma release flow: validated release waves, zero-side-effect smoke dry runs, per-repo samples gates, release verification sweeps, and wave tracker reporting (ledger + changelog).",
+  "author": {
+    "name": "Metanorma"
+  },
+  "homepage": "https://github.com/metanorma/release-process",
+  "repository": "https://github.com/metanorma/release-process",
+  "keywords": ["metanorma", "release", "standards", "documentation"]
+}

@@ -5,7 +5,33 @@ Everything a maintainer (or an AI agent) needs to run a fully validated
 release wave, from leaf gems to the Docker image, registries, and
 communications.
 
-## Start here
+## Install as a Claude Code plugin
+
+This repo is also a Claude Code plugin and its own marketplace. Any
+maintainer installs it with:
+
+```
+/plugin marketplace add metanorma/release-process
+/plugin install metanorma-release@release-process
+```
+
+Skills (invoke as `/metanorma-release:<name>`, or bare `/release` when
+unambiguous):
+
+| Skill | Scope |
+|---|---|
+| `/release` | full validated release wave, tiers 1-6 (human-initiated only) |
+| `/release-smoke` | zero-side-effect dry run of the whole flow |
+| `/samples-gate <repos…>` | Tier-3 local gate for one repo / one flavor |
+| `/release-verify <version>` | post-release registries + artifacts sweep |
+| `/wave-report v<prev> v<wave>` | ledger + changelog tracker comments |
+| `/release-status` | read-only "where are we" state report |
+
+Authorization stays human regardless of skill: version numbers,
+go/no-go on releases, and anything irreversible are owner decisions the
+skills are written to enforce.
+
+## Start here (without the plugin)
 
 1. Read the docs in order: `1-overview.md`, `2-pr-wave.md`,
    `3-release-wave.md`, `4-local-samples-validation.md`,

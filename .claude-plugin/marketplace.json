@@ -1,0 +1,13 @@
+{
+  "name": "release-process",
+  "owner": {
+    "name": "Metanorma"
+  },
+  "plugins": [
+    {
+      "name": "metanorma-release",
+      "source": "./",
+      "description": "Metanorma release flow: validated release waves, smoke dry runs, samples gates, release verification, wave tracker reporting."
+    }
+  ]
+}
