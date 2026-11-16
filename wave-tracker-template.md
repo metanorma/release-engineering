@@ -11,10 +11,10 @@ Discussion body at each stage transition. The checkboxes mirror the oracles
 
 ## Body template
 
-```markdown
+````markdown
 ### Pipeline status
 
-​```mermaid
+```mermaid
 flowchart LR
   classDef done fill:#2da44e,color:#fff,stroke:#2da44e;
   classDef active fill:#bf8700,color:#fff,stroke:#bf8700;
@@ -22,7 +22,7 @@ flowchart LR
   S0[Stability]:::pending --> S1[Local test]:::pending --> S2[mn-samples wave]:::pending
   S2 --> S3[Release waves T1-T4]:::pending --> S4[Docker + versions]:::pending
   S4 --> S5[Comms + close-out]:::pending
-​```
+```
 
 ### Faces in this wave
 
