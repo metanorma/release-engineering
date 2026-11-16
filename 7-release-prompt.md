@@ -6,12 +6,21 @@ Run the wave from a clean clone-per-repo posture. This prompt assumes
 ```
 GOAL: run a fully-validated metanorma release wave, tiers 1-6, bottom-up.
 
+STEP 0 — TRACKER: open the wave tracker from wave-tracker-template.md as a
+Discussion in metanorma/discussions (or wherever the owner directs). Keep
+the mermaid stage classes and checkboxes in sync at EVERY gate; never
+check a box the oracle does not show; the close-out report links it.
+
 STATE CHECK (do first): `gem list -r` the current latest of every tier-1/2
 gem; read each repo's version.rb; confirm the release workflows exist
 (.github/workflows/release.yml). Anything already released = skip; anything
 with main-ahead fixes = include.
 
 RULES (violating any = incident):
+- Docker toolchain is Ruby 4.0 always (owner rule), never 3.3.
+- The version number is the owner's decision: patch bumps = version.rb + 1
+  for routine waves; ANY other bump (minor, major, re-ordering) waits for
+  the owner's explicit number. rubygems versions are forever.
 - Dependency floors: real released `~>` only; relaton `~> 3.1.1`; ZERO
   relaton-cli/relaton-render/relaton-bib/asciichem anywhere; no `.pre`
   floors; no exact pins (canon/pubid/moxml/lutaml-model exact holds rot).
@@ -51,6 +60,9 @@ TIERS:
 5. docker: release-tag.yml (next_version=<cli>) → tag → build-push →
    ALL per-flavor smokes green; tebako: check tpkg-registry.yaml has the
    payload (tebako-packages#issue if not) → sync-payload.rb → build.
+   Publish verification per 5-cli-docker-close-out.md: publish-log grep
+   `Installing <gem> <version>` for every bundled gem, Hub digest moved,
+   float guard; tag-rerun refresh flow when stale.
 6. Registries + communications (a release is NOT done without these):
    a. GitHub Releases: `gh release list` on EVERY released repo must show
       the new tag with the correct Latest marker; if the release flow
