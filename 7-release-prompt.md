@@ -59,7 +59,8 @@ TIERS:
 4. cli release (only if T3 fully green) → verify on rubygems.
 5. docker: release-tag.yml (next_version=<cli>) → tag → build-push →
    ALL per-flavor smokes green; tebako: check tpkg-registry.yaml has the
-   payload (tebako-packages#issue if not) → sync-payload.rb → build.
+   payload (tebako-packages#issue if not) →
+   packed-metanorma/tools/sync-payload.rb → build.
    Publish verification per 5-cli-docker-close-out.md: publish-log grep
    `Installing <gem> <version>` for every bundled gem, Hub digest moved,
    float guard; tag-rerun refresh flow when stale.
