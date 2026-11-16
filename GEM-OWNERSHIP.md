@@ -3,7 +3,7 @@
 Classification of every non-platform gem in the metanorma Docker bundle
 (`metanorma-debian/Gemfile.lock`, 2026-11-16), by the published gemspec's
 authors. **RIBOSE** = maintained within the Ribose ecosystem (metanorma,
-relaton, lutaml, pubid, fontist, glossarist, leptris, claricle, riposte
+relaton, lutaml, pubid, fontist, glossarist, leptris, claricle
 families) — these are the gems the release waves cut. **external** =
 third-party gems we depend on but never release.
 
