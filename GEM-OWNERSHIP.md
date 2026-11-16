@@ -258,3 +258,15 @@ lutaml; those families release themselves (see the Tier 0 rule in
 Regenerate: parse the lock's non-platform gem lines, fetch each gem's
 latest version from the rubygems API, classify by the authors field
 (re-run when the wave changes the bundle).
+
+## Ribose-family gems OUTSIDE the released bundle
+
+These publish `authors: Ribose Inc.` correctly but are not in the Docker
+bundle — recorded so ownership sweeps do not re-flag them:
+
+| Gem | Repo | Bundle? |
+|---|---|---|
+| ukiryu | ukiryu/ukiryu | no |
+| etassia | claricle/etassia | no |
+| asciichem | asciichem (asciichem.org) | no |
+| chemomer | chemomer/chemomer-ruby | no |
