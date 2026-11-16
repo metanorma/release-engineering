@@ -36,6 +36,7 @@ unambiguous):
 |---|---|
 | The owner orders the next release wave and states the version | `/release <version>` |
 | Release everything now but hold the cli gate — end users should test documents on a prerelease before the fleet goes live | the staged program: `/release-fleet` → `/release-prerelease <pre-version>` → `/release <final>` (recipe: `3-release-wave.md` § Staged release program) |
+| The prerelease is out with testers, and the fleet just released new floors — the prerelease must catch up | `/release-prerelease-upgrade` (paste form: Prompt B of `9-prerelease-prompt.md`; a patch-only movement is a no-op and cuts nothing) |
 | Prove the flow works before trusting it with a real wave, or after editing the docs | `/release-smoke [version]` |
 | "Does this flavor render on the released stack?" — one repo, full gate evidence | `/samples-gate <repo>` (e.g. `/samples-gate iho`; several: `/samples-gate iso iho`; whole roster: `/samples-gate --full`) |
 | A release just shipped and someone reports confusion about what is out | `/release-verify <version>` (e.g. `/release-verify 1.18.6`) |
@@ -99,7 +100,10 @@ and the call-for-testing draft.
 A release is not done until the registries and communications reflect it.
 For the staged program (fleet first, user-testable prerelease, then
 live), read `3-release-wave.md` § Staged release program — the same
-gates apply act by act, with the cli gate held between acts.
+gates apply act by act, with the cli gate held between acts. Act 2 has
+two paste-ready prompts in `9-prerelease-prompt.md`: Prompt A cuts the
+next prerelease, Prompt B upgrades an existing prerelease line to the
+fleet's new floors.
 
 ## Tools
 
