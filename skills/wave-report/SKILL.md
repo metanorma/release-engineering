@@ -28,5 +28,11 @@ A gem shipped to rubygems without its git tag surfaces in the changelog
 output as a release-hygiene gap: flag it on the tracker, then leave the
 fix to the owning team unless the owner directs otherwise.
 
+The ledger's **Manifest drift** section names gems to add to or prune
+from `GEM-OWNERSHIP.md` (ownership changes: new gems appear, old gems
+are removed). Apply every drift finding in this wave — update the
+manifest in the same change that posts the report — or the next wave's
+ledger silently misses them.
+
 If a tracker URL was given, also sync its body (mermaid stage classes,
 checkboxes) to reality — never check a box the oracle does not show.

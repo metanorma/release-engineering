@@ -85,7 +85,9 @@ A release is not done until the registries and communications reflect it.
 - `gem-ledger.rb v<prev> v<wave>` — version table for every Ribose-managed
   gem (per `GEM-OWNERSHIP.md`), diffed against the previous wave's frozen
   docker bundle and sorted changed-first: the changed/new/removed gems in
-  one top table, everything unchanged collapsed behind a dropdown.
+  one top table, everything unchanged collapsed behind a dropdown. Ends
+  with a **Manifest drift** section (ownership changes: gems appear and
+  disappear from the bundle) to apply before the wave closes.
   Prints ready-to-post markdown.
 - `gem-changelog.rb v<prev> v<wave>` — per-gem changelog (GitHub Release
   notes when present, otherwise tag-compare subjects) plus a mechanical

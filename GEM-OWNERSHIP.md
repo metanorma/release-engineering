@@ -11,6 +11,12 @@ Tier 0 rule: the metanorma team releases only the `metanorma` org's gems;
 the relaton, lutaml, pubid, fontist, glossarist, leptris and claricle orgs
 release their own.
 
+**Ownership is not static.** Gems appear in and disappear from the bundle,
+and gems move between orgs. Refresh this manifest every wave:
+`gem-ledger.rb` ends its output with a **Manifest drift** section naming
+gems to add or prune — apply it in the same wave, or the next wave's
+ledger silently misses them.
+
 ## metanorma (48 gems)
 
 - `cnccs`

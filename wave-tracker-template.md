@@ -73,8 +73,11 @@ gem-ledger.rb v<prev-version> v<wave-version>
 ```
 
 Post the script's output as one comment on the wave issue, marking nothing
-by hand — the diff is the record. Gems absent from both bundles fall back
-to their current rubygems version, noted as such.
+by hand — the diff is the record. The output ends with a **Manifest
+drift** section (ownership changes: new gems appear, old gems are
+removed) — refresh `GEM-OWNERSHIP.md` per that section in the same wave.
+Gems absent from both bundles fall back to their current rubygems
+version, noted as such.
 
 ### Per-gem changelog + wave summary
 

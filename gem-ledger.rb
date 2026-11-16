@@ -45,6 +45,18 @@ rescue StandardError
   "?"
 end
 
+OUR_ORGS = %w[metanorma lutaml relaton pubid fontist glossarist unitsml
+              omnizip plurimath claricle leptris riboseinc].freeze
+
+def source_org(gem)
+  u = JSON.parse(Net::HTTP.get(URI("https://rubygems.org/api/v1/gems/#{gem}.json")))
+  src = u["source_code_uri"] || u["homepage_uri"] || ""
+  m = src.match(%r{github\.com/([^/]+)})
+  m ? m[1] : nil
+rescue StandardError
+  nil
+end
+
 def manifest
   path = File.join(__dir__, "GEM-OWNERSHIP.md")
   orgs = {}
@@ -63,6 +75,7 @@ end
 old = parse_versions(fetch_lock(TAG1))
 new = parse_versions(fetch_lock(TAG2))
 
+all_manifest = manifest.values.flatten
 changed = []   # [org, gem, version-cell, kind(:new/:removed/:changed)]
 unchanged = Hash.new { |h, k| h[k] = [] }
 
@@ -125,6 +138,24 @@ unless n_unchanged.zero?
   end
   out << ""
   out << "</details>"
+end
+
+missing_ours = ((new.keys - old.keys) - all_manifest)
+               .select { |g| OUR_ORGS.include?(source_org(g)) }
+stale = all_manifest.select { |g| old[g].nil? && new[g].nil? }
+
+out << ""
+out << "### Manifest drift"
+out << ""
+if missing_ours.empty? && stale.empty?
+  out << "None — the manifest matches the bundle. Ownership drifts (new gems appear, old gems are removed); this check runs every wave."
+else
+  unless missing_ours.empty?
+    out << "- #{missing_ours.size} gems newly appeared in the bundle and resolve to our GitHub orgs but are MISSING from `GEM-OWNERSHIP.md`: #{missing_ours.map { |g| "`#{g}`" }.join(', ')} — refresh the manifest this wave."
+  end
+  unless stale.empty?
+    out << "- #{stale.size} manifest gems are in neither bundle (stale entries): #{stale.map { |g| "`#{g}`" }.join(', ')} — verify and prune."
+  end
 end
 
 puts out.join("\n")
