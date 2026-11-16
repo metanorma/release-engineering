@@ -6,11 +6,13 @@
 # Usage: gem-ledger.rb <prev-docker-tag> <wave-docker-tag> [owner/repo]
 #
 # Fetches metanorma-debian/Gemfile.lock from both metanorma-docker tags,
-# diffs the versions of every Ribose-managed gem (per GEM-OWNERSHIP.md,
-# grouped by org), and prints the wave-issue ledger as markdown:
-#   - changed rows show `old → new`
-#   - gems new to the bundle are highlighted
-#   - gems dropped from the bundle are struck through with their last version
+# diffs the versions of every Ribose-managed gem (per GEM-OWNERSHIP.md),
+# and prints the wave-issue ledger as markdown:
+#   - a summary (changes, additions, removals, unchanged count)
+#   - a "Changed in this wave" table first (gem | org | version),
+#     new gems highlighted, dropped gems struck through
+#   - everything unchanged collapsed behind a <details> dropdown,
+#     expanded as per-org tables
 #   - gems absent from both bundles fall back to their rubygems version
 #
 # Example: gem-ledger.rb v1.18.5 v1.18.6
@@ -61,46 +63,68 @@ end
 old = parse_versions(fetch_lock(TAG1))
 new = parse_versions(fetch_lock(TAG2))
 
-n_chg = 0
-added_names = []
-removed_names = []
-body = []
+changed = []   # [org, gem, version-cell, kind(:new/:removed/:changed)]
+unchanged = Hash.new { |h, k| h[k] = [] }
 
 manifest.each do |org, gems|
-  rows = gems.map do |g|
+  gems.each do |g|
     o = old[g]
     v = new[g]
     if o && v && o != v
-      n_chg += 1
-      "| `#{g}` | `#{o}` → `#{v}` |"
+      changed << [org, g, "`#{o}` → `#{v}`", :changed]
     elsif o.nil? && v
-      added_names << "#{g} #{v}"
-      "| `#{g}` | `#{v}` — **new in this wave** |"
+      changed << [org, g, "`#{v}` — **new in this wave**", :new]
     elsif v.nil? && o
-      removed_names << g
-      "| `#{g}` | ~~`#{o}`~~ — removed from the bundle |"
+      changed << [org, g, "~~`#{o}`~~ — removed from the bundle", :removed]
     else
       v ||= "#{rubygems_version(g)} (not in bundle)"
-      "| `#{g}` | `#{v}` |"
+      unchanged[org] << "| `#{g}` | `#{v}` |"
     end
   end
-  body << ""
-  body << "**#{org}** (#{gems.size})"
-  body << ""
-  body << "| gem | version |"
-  body << "|---|---|"
-  body.concat(rows)
 end
 
-summary = [
+order = { new: 0, removed: 1, changed: 2 }
+changed.sort_by! { |_org, g, _cell, kind| [order[kind], g] }
+
+added_names = changed.select { |r| r[3] == :new }.map { |_o, g, _c, _k| "#{g} #{new[g]}" }
+removed_names = changed.select { |r| r[3] == :removed }.map { |_o, g, _c, _k| g }
+n_unchanged = unchanged.values.sum(&:size)
+
+out = [
   "### Ribose-managed gem versions — #{norm(TAG2).delete_prefix('v')} wave",
   "",
-  "Resolved versions of every Ribose-managed gem (per `GEM-OWNERSHIP.md`, grouped by org) in the shipped state, from the frozen bundle (`#{LOCK}` at the `#{REPO}` #{norm(TAG2)} tag), **diffed against the previous wave's frozen bundle (#{norm(TAG1)})**:",
+  "Resolved versions of every Ribose-managed gem (per `GEM-OWNERSHIP.md`) in the shipped state, from the frozen bundle (`#{LOCK}` at the `#{REPO}` #{norm(TAG2)} tag), **diffed against the previous wave's frozen bundle (#{norm(TAG1)})**:",
   "",
-  "- **#{n_chg} version changes** carried into this wave",
-  "- **#{added_names.size} gems newly added** to the bundle#{added_names.empty? ? '' : ': ' + added_names.join(', ')}",
-  "- **#{removed_names.size} gems removed**#{removed_names.empty? ? '' : ': ' + removed_names.join(', ')}",
+  "- **#{changed.count { |r| r[3] == :changed }} version changes** carried into this wave",
+  "- **#{changed.count { |r| r[3] == :new }} gems newly added** to the bundle#{added_names.empty? ? '' : ': ' + added_names.join(', ')}",
+  "- **#{changed.count { |r| r[3] == :removed }} gems removed**#{removed_names.empty? ? '' : ': ' + removed_names.join(', ')}",
+  "- **#{n_unchanged} gems unchanged** (collapsed below)",
   "",
-  "Changed rows show `old → new`; new rows are highlighted; removed gems are struck through with their last carried version. The full lock remains the reference for external gems.",
+  "The full lock remains the reference for external gems.",
+  "",
+  "### Changed in this wave",
+  "",
+  "| gem | org | version |",
+  "|---|---|---|",
 ]
-puts (summary + body).join("\n")
+changed.each do |org, g, cell, _kind|
+  out << "| `#{g}` | #{org} | #{cell} |"
+end
+
+unless n_unchanged.zero?
+  out << ""
+  out << "<details>"
+  out << "<summary>Unchanged — #{n_unchanged} gems (expanded by org)</summary>"
+  unchanged.each do |org, rows|
+    out << ""
+    out << "**#{org}** (#{rows.size})"
+    out << ""
+    out << "| gem | version |"
+    out << "|---|---|"
+    out.concat(rows)
+  end
+  out << ""
+  out << "</details>"
+end
+
+puts out.join("\n")

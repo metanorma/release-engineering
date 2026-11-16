@@ -10,7 +10,9 @@ Produce and post the wave tracker's standing report comments.
    changelog sections) and `${CLAUDE_PLUGIN_ROOT}/GEM-OWNERSHIP.md`
    (the scripts' manifest — do not regenerate it).
 2. Run `${CLAUDE_PLUGIN_ROOT}/gem-ledger.rb v<prev> v<wave>` — post its
-   output verbatim as one comment.
+   output verbatim as one comment. The output is changed-first: the
+   "Changed in this wave" table on top, unchanged gems collapsed behind
+   a `<details>` dropdown; do not flatten or re-sort it.
 3. Run `${CLAUDE_PLUGIN_ROOT}/gem-changelog.rb v<prev> v<wave>` — write
    a one-paragraph wave narrative from the wave's actual work, prepend
    it above the mechanical summary, and post as the second comment.

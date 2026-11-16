@@ -95,8 +95,9 @@ dispatch the docker build workflow manually and say so in the report.
    to the GitHub Release and the blog post.
 3b. **Ribose-managed gem ledger on the tracker**: run
    `gem-ledger.rb v<prev-version> v<wave-version>` (diffs the two waves'
-   frozen docker bundles across all 95 Ribose-managed gems, grouped by org
-   per `GEM-OWNERSHIP.md`) and post its output as one tracker comment.
+   frozen docker bundles across all 95 Ribose-managed gems per
+   `GEM-OWNERSHIP.md`; changed-first table, unchanged gems collapsed) and
+   post its output as one tracker comment.
 3c. **Per-gem changelog + wave summary on the tracker**: run
    `gem-changelog.rb v<prev-version> v<wave-version>` (release notes or
    tag-compare per changed gem, plus mechanical wave totals), write the
