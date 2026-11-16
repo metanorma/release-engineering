@@ -34,7 +34,7 @@ unambiguous):
 | Situation | Use |
 |---|---|
 | The owner orders the next release wave and states the version | `/release <version>` |
-| `/release-fleet` then `/release-prerelease <pre-version>` — release everything now, hold the cli gate, then put a user-testable prerelease out | the staged program (3-release-wave.md § Staged release program) |
+| Release everything now but hold the cli gate — end users should test documents on a prerelease before the fleet goes live | the staged program: `/release-fleet` → `/release-prerelease <pre-version>` → `/release <final>` (recipe: `3-release-wave.md` § Staged release program) |
 | Prove the flow works before trusting it with a real wave, or after editing the docs | `/release-smoke [version]` |
 | "Does this flavor render on the released stack?" — one repo, full gate evidence | `/samples-gate <repo>` (e.g. `/samples-gate iho`; several: `/samples-gate iso iho`; whole roster: `/samples-gate --full`) |
 | A release just shipped and someone reports confusion about what is out | `/release-verify <version>` (e.g. `/release-verify 1.18.6`) |
@@ -47,12 +47,14 @@ Typical full cycle: `/release-status` to scope the wave →
 program, three acts replace the single `/release`: `/release-fleet`
 releases everything below cli and holds the gate →
 `/release-prerelease <pre-version>` publishes the user-testable cli
-prerelease (rubygems opt-in, docker pre image, minimal gemspec locks
-derived and owner-approved) with a call for testing in
-metanorma/discussions → `/release <final>` goes live, closes the
-tracker, and posts the real announcement. `/release-smoke` stands
-outside the cycle: run it before the first real wave on this flow and
-after every substantial edit to the docs or skills.
+prerelease — owner-stated version in the fleet's `.pre.` date form
+(`<x>.<y>.<z>.pre.<yyyymmdd>`), rubygems opt-in install, docker pre
+image, minimal gemspec locks derived from the validated fleet — with a
+call for testing in metanorma/discussions (an invitation, not the
+announcement) → `/release <final>` goes live, closes the tracker, and
+posts the real announcement. `/release-smoke` stands outside the cycle:
+run it before the first real wave on this flow and after every
+substantial edit to the docs or skills.
 
 Standing rules in every skill:
 - Version numbers are owner decisions. Patch = version.rb + 1; anything
@@ -65,9 +67,11 @@ Standing rules in every skill:
   without verification.
 
 `/release` additionally refuses to run without an explicit target
-version, and `/samples-gate` refuses a lone-flavor result while any
-tier-1 lib has unreleased main-ahead work — that combination does not
-predict released behavior.
+version, `/samples-gate` refuses a lone-flavor result while any tier-1
+lib has unreleased main-ahead work (that combination does not predict
+released behavior), and `/release-prerelease` brings the maintainer two
+approval points before it posts anything: the derived gemspec lock plan
+and the call-for-testing draft.
 
 ## Start here (without the plugin)
 
@@ -89,6 +93,9 @@ predict released behavior.
    one-paragraph narrative written at close-out).
 
 A release is not done until the registries and communications reflect it.
+For the staged program (fleet first, user-testable prerelease, then
+live), read `3-release-wave.md` § Staged release program — the same
+gates apply act by act, with the cli gate held between acts.
 
 ## Tools
 
