@@ -52,24 +52,57 @@ actually fetchable.
 - Cancel stray auto-dispatched releases immediately; rubygems never re-admits
   a version number, not even a yanked one.
 
-## Staged waves (hold the cli gate)
+## Staged release program (stage the fleet, pre-release testing, then live)
 
-A wave can stop after Tier 3: the fleet gems (Tiers 1-2) are released and
-the local samples gate is verified, but the cli gate is HELD. This stages
-the fleet for the separate final release: a **pre-alpha metanorma-cli**
-whose gemspec locks the necessary, MINIMAL underlying gems against the
-versions the staged wave released, and which alone drives the docker /
-tebako ship and the announcement.
+The wave runs as three acts so end users can compile THEIR documents on
+the coming cli and report findings before the fleet goes live. The
+governing practice is release channels: the pre-release is published and
+opt-in — never a private build — and promotion, not re-release, moves it
+to live.
 
-Rules of a staged wave:
-- Tiers 1-3 run exactly as written; nothing about their gates changes.
-- cli is untouched — no release, no version choice, no gemspec edit.
-  The pre-alpha version is the owner's decision; never invent it here.
-- Docker, tebako, metanorma/versions, and communications do not run.
-- Completion = Tiers 1-3 verified, tracker marks T4-T6 HELD (awaiting
-  final cli pre-alpha), and GitHub Releases verified for every repo
-  released in Tiers 1-2.
-- The wave tracker stays OPEN. The final release wave closes it: its
-  ledger + changelog will span the entire staged wave in one diff
-  against the last docker tag, and its announcement goes to
-  metanorma/discussions.
+### Act 1 — stage the fleet (`/release-fleet`)
+
+Tiers 1-3 run exactly as written: fleet gems released, the local samples
+gate green. The cli gate is HELD — no cli release, no gemspec edit.
+Completion: tracker marks T4-T6 HELD; GitHub Releases verified for every
+repo released in Tiers 1-2. The tracker stays open.
+
+### Act 2 — pre-release for end-user testing (`/release-prerelease`)
+
+Goal: end users test their documents on the coming cli through normal
+channels and report findings while nothing is live.
+
+- cli publishes to rubygems as a PRERELEASE, owner-stated version in the
+  fleet's `.pre.` date form (`<x>.<y>.<z>.pre.<yyyymmdd>`; iterate by
+  date; never guessed). Opt-in: `gem install metanorma-cli -v <V>` —
+  rubygems serves prereleases only on explicit request, so live users
+  are untouched.
+- A docker image is built and pushed for the prerelease (default tag:
+  the same version string), with the per-flavor smokes run on it, so
+  users compile documents the way they normally do.
+- The cli gemspec locks the NECESSARY but MINIMAL underlying gems:
+  lock set = cli's direct runtime dependencies (the gemspec
+  add_dependency lines / the flavor registry cli actually loads), each
+  at `~>` of the minor version the Act-1 tier-3 gate validated. Never
+  exact pins (fleet rule), never transitive or dev dependencies, never
+  flavor gems cli does not load. The derived lock plan goes to the
+  owner for approval before any gemspec commit.
+- The cli GitHub Release for the prerelease is marked PRE-RELEASE.
+- A CALL FOR TESTING goes to metanorma/discussions: exact install and
+  docker-compile instructions, what changed, and the feedback channel.
+  This is an invitation, NOT the release announcement. The draft goes
+  to the owner before posting.
+- Findings in the window fix forward: fleet fixes re-run the Act-1
+  gates as needed; each iteration is a new dated prerelease. The
+  tracker stays open throughout.
+
+### Act 3 — live (`/release <final>`)
+
+The owner states the final cli version. The Act-2 gemspec locks stand as
+they are — they re-derive only if the fleet moved during the testing
+window (in which case the affected tier-3 gates re-run first). Docker
+final tags, metanorma/versions lockfile, tebako packed build, the GitHub
+Release Latest marker, the real announcement in metanorma/discussions,
+and the blog post follow the standard tiers 5-6. The wave tracker closes
+with the ledger + changelog spanning the whole program in one diff
+against the last docker tag.

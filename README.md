@@ -20,8 +20,9 @@ unambiguous):
 
 | Skill | Scope |
 |---|---|
-| `/release` | full validated release wave, tiers 1-6 (human-initiated only) |
-| `/release-fleet` | staged wave: release tiers 1-3, HOLD the cli gate for the final pre-alpha cli (minimal gemspec locks) that drives docker/tebako |
+| `/release` | full validated release wave, tiers 1-6 (human-initiated only); also Act 3 (live) of the staged program |
+| `/release-fleet` | Act 1 (stage): release tiers 1-3, HOLD the cli gate |
+| `/release-prerelease <pre-version>` | Act 2 (test): cli prerelease + pre-release docker image + call for testing; end users compile their documents before anything goes live |
 | `/release-smoke` | zero-side-effect dry run of the whole flow |
 | `/samples-gate <repos…>` | Tier-3 local gate for one repo / one flavor |
 | `/release-verify <version>` | post-release registries + artifacts sweep |
@@ -33,7 +34,7 @@ unambiguous):
 | Situation | Use |
 |---|---|
 | The owner orders the next release wave and states the version | `/release <version>` |
-| Release everything now, but the cli gate waits — the finale is a separate pre-alpha cli whose gemspec locks the necessary minimal gems and drives docker/tebako | `/release-fleet` |
+| `/release-fleet` then `/release-prerelease <pre-version>` — release everything now, hold the cli gate, then put a user-testable prerelease out | the staged program (3-release-wave.md § Staged release program) |
 | Prove the flow works before trusting it with a real wave, or after editing the docs | `/release-smoke [version]` |
 | "Does this flavor render on the released stack?" — one repo, full gate evidence | `/samples-gate <repo>` (e.g. `/samples-gate iho`; several: `/samples-gate iso iho`; whole roster: `/samples-gate --full`) |
 | A release just shipped and someone reports confusion about what is out | `/release-verify <version>` (e.g. `/release-verify 1.18.6`) |
@@ -43,13 +44,15 @@ unambiguous):
 Typical full cycle: `/release-status` to scope the wave →
 `/release <version>` to run it → `/wave-report` at close-out →
 `/release-verify` whenever anyone doubts what shipped. For the staged
-shape, `/release-fleet` replaces `/release`: it ends with everything
-below cli released and the tracker held open — the later final release
-(a pre-alpha cli, owner's version, minimal gemspec locks) runs `/release
-<pre-alpha>` on top and closes the tracker with the announcement in
-metanorma/discussions. `/release-smoke` stands outside the cycle: run it
-before the first real wave on this flow and after every substantial edit
-to the docs or skills.
+program, three acts replace the single `/release`: `/release-fleet`
+releases everything below cli and holds the gate →
+`/release-prerelease <pre-version>` publishes the user-testable cli
+prerelease (rubygems opt-in, docker pre image, minimal gemspec locks
+derived and owner-approved) with a call for testing in
+metanorma/discussions → `/release <final>` goes live, closes the
+tracker, and posts the real announcement. `/release-smoke` stands
+outside the cycle: run it before the first real wave on this flow and
+after every substantial edit to the docs or skills.
 
 Standing rules in every skill:
 - Version numbers are owner decisions. Patch = version.rb + 1; anything
