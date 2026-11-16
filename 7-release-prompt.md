@@ -62,6 +62,13 @@ TIERS:
    c. Announcement at metanorma/discussions (the fleet announcements
       repo — Discussions are disabled on individual gem repos).
    d. metanorma.org blog post: _posts/YYYY-MM-DD-metanorma-cli-X.Y.Z-release.adoc.
+   e. Wave ledger + changelog on the tracker (the wave Discussion/issue):
+      `gem-ledger.rb v<prev> v<wave>` posts the all-gems version table as a
+      diff against the previous wave; `gem-changelog.rb v<prev> v<wave>`
+      posts the per-gem changelog (release notes or tag-compare) + wave
+      summary, with a one-paragraph narrative written at close-out. A gem
+      shipped to rubygems without its git tag is a release-hygiene gap —
+      flag it on the tracker.
 7. Close-out: downstream issue posts (per-issue, independent), reporter
    per-issue confirmations with release pointers + verification evidence,
    release-process docs + memory update, final report with every version

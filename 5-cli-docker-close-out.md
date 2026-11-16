@@ -97,6 +97,12 @@ dispatch the docker build workflow manually and say so in the report.
    `gem-ledger.rb v<prev-version> v<wave-version>` (diffs the two waves'
    frozen docker bundles across all 95 Ribose-managed gems, grouped by org
    per `GEM-OWNERSHIP.md`) and post its output as one tracker comment.
+3c. **Per-gem changelog + wave summary on the tracker**: run
+   `gem-changelog.rb v<prev-version> v<wave-version>` (release notes or
+   tag-compare per changed gem, plus mechanical wave totals), write the
+   one-paragraph wave narrative, and post both as the second tracker
+   comment. A gem shipped without its git tag is flagged by the script —
+   fix or acknowledge it before close-out.
 4. **metanorma.org blog post**: add
    `_posts/YYYY-MM-DD-metanorma-cli-X.Y.Z-release.adoc` to metanorma.org (see
    the 1.11.3 post for the front-matter template) and PR it so the site
