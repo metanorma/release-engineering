@@ -87,7 +87,10 @@ dispatch the docker build workflow manually and say so in the report.
    versions carrying them, and the ISO verification results.
 3. **Announce at metanorma/discussions**: post the release announcement in
    the metanorma/discussions repository (the fleet's announcements forum —
-   Discussions are disabled on the individual gem repos). Include the
+   Discussions are disabled on the individual gem repos). The wave's
+   TRACKER is also a Discussion there, opened at `planned` from
+   `wave-tracker-template.md` and updated at every gate — the final
+   announcement comment closes the tracker. Include the
    version, the bundled gem-wave highlights, the Docker image tag, and links
    to the GitHub Release and the blog post.
 4. **metanorma.org blog post**: add

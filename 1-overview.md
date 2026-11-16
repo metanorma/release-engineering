@@ -103,6 +103,12 @@ tier graph above), not the fleet.
  └──────────────────────┘
 ```
 
+The wave runs under a PUBLIC tracker: one Discussion in
+metanorma/discussions per wave, opened from
+`wave-tracker-template.md` (mermaid pipeline diagram with per-stage
+status, per-tier checkboxes, version ledger), updated in place at every
+gate. Users follow the tracker; the checkboxes mirror the oracles.
+
 Steps 1-2 exist so that "stable" is a MEASURED judgment, not a feeling: the
 local render is the fast loop (minutes, one repo, stops a bad cut before it
 burns fleet CI), and the mn-samples wave is the same corpus set rendered on
