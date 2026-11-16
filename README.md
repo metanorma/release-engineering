@@ -21,6 +21,7 @@ unambiguous):
 | Skill | Scope |
 |---|---|
 | `/release` | full validated release wave, tiers 1-6 (human-initiated only) |
+| `/release-fleet` | staged wave: release tiers 1-3, HOLD the cli gate for the final pre-alpha cli (minimal gemspec locks) that drives docker/tebako |
 | `/release-smoke` | zero-side-effect dry run of the whole flow |
 | `/samples-gate <repos…>` | Tier-3 local gate for one repo / one flavor |
 | `/release-verify <version>` | post-release registries + artifacts sweep |
@@ -32,17 +33,23 @@ unambiguous):
 | Situation | Use |
 |---|---|
 | The owner orders the next release wave and states the version | `/release <version>` |
+| Release everything now, but the cli gate waits — the finale is a separate pre-alpha cli whose gemspec locks the necessary minimal gems and drives docker/tebako | `/release-fleet` |
 | Prove the flow works before trusting it with a real wave, or after editing the docs | `/release-smoke [version]` |
 | "Does this flavor render on the released stack?" — one repo, full gate evidence | `/samples-gate <repo>` (e.g. `/samples-gate iho`; several: `/samples-gate iso iho`; whole roster: `/samples-gate --full`) |
 | A release just shipped and someone reports confusion about what is out | `/release-verify <version>` (e.g. `/release-verify 1.18.6`) |
 | A wave is closing: the tracker needs its two standing comments | `/wave-report v<prev> v<wave> [tracker-url]` (e.g. `/wave-report v1.18.5 v1.18.6`) |
 | "What would the next wave carry? Is anything blocking?" | `/release-status` |
 
-Typical cycle: `/release-status` to scope the wave → `/release <version>`
-to run it → `/wave-report` at close-out → `/release-verify` whenever
-anyone doubts what shipped. `/release-smoke` stands outside the cycle:
-run it before the first real wave on this flow and after every
-substantial edit to the docs or skills.
+Typical full cycle: `/release-status` to scope the wave →
+`/release <version>` to run it → `/wave-report` at close-out →
+`/release-verify` whenever anyone doubts what shipped. For the staged
+shape, `/release-fleet` replaces `/release`: it ends with everything
+below cli released and the tracker held open — the later final release
+(a pre-alpha cli, owner's version, minimal gemspec locks) runs `/release
+<pre-alpha>` on top and closes the tracker with the announcement in
+metanorma/discussions. `/release-smoke` stands outside the cycle: run it
+before the first real wave on this flow and after every substantial edit
+to the docs or skills.
 
 Standing rules in every skill:
 - Version numbers are owner decisions. Patch = version.rb + 1; anything

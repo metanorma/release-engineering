@@ -51,3 +51,25 @@ actually fetchable.
 - Multi-gem monorepos need gem-name scoping (ci#471) — relaton is single-gem now.
 - Cancel stray auto-dispatched releases immediately; rubygems never re-admits
   a version number, not even a yanked one.
+
+## Staged waves (hold the cli gate)
+
+A wave can stop after Tier 3: the fleet gems (Tiers 1-2) are released and
+the local samples gate is verified, but the cli gate is HELD. This stages
+the fleet for the separate final release: a **pre-alpha metanorma-cli**
+whose gemspec locks the necessary, MINIMAL underlying gems against the
+versions the staged wave released, and which alone drives the docker /
+tebako ship and the announcement.
+
+Rules of a staged wave:
+- Tiers 1-3 run exactly as written; nothing about their gates changes.
+- cli is untouched — no release, no version choice, no gemspec edit.
+  The pre-alpha version is the owner's decision; never invent it here.
+- Docker, tebako, metanorma/versions, and communications do not run.
+- Completion = Tiers 1-3 verified, tracker marks T4-T6 HELD (awaiting
+  final cli pre-alpha), and GitHub Releases verified for every repo
+  released in Tiers 1-2.
+- The wave tracker stays OPEN. The final release wave closes it: its
+  ledger + changelog will span the entire staged wave in one diff
+  against the last docker tag, and its announcement goes to
+  metanorma/discussions.
