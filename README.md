@@ -23,6 +23,7 @@ unambiguous):
 | `/release` | full validated release wave, tiers 1-6 (human-initiated only); also Act 3 (live) of the staged program |
 | `/release-fleet` | Act 1 (stage): release tiers 1-3, HOLD the cli gate |
 | `/release-prerelease <pre-version>` | Act 2 (test): cli prerelease + pre-release docker image + call for testing; end users compile their documents before anything goes live |
+| `/release-prerelease-upgrade` | Act 2 iteration: fleet released new floors after the cut — re-derive the locks, re-gate, cut the next dated prerelease |
 | `/release-smoke` | zero-side-effect dry run of the whole flow |
 | `/samples-gate <repos…>` | Tier-3 local gate for one repo / one flavor |
 | `/release-verify <version>` | post-release registries + artifacts sweep |
@@ -52,7 +53,10 @@ prerelease — owner-stated version in the fleet's `.pre.` date form
 image, minimal gemspec locks derived from the validated fleet — with a
 call for testing in metanorma/discussions (an invitation, not the
 announcement) → `/release <final>` goes live, closes the tracker, and
-posts the real announcement. `/release-smoke` stands outside the cycle:
+posts the real announcement. Fleet movement mid-window is the
+`/release-prerelease-upgrade` command: it re-derives the locks at the
+new floors, re-runs the affected gates, and cuts the next dated
+prerelease on the same testing thread. `/release-smoke` stands outside the cycle:
 run it before the first real wave on this flow and after every
 substantial edit to the docs or skills.
 

@@ -7,10 +7,11 @@ disable-model-invocation: true
 
 Execute Act 2 of the staged program: put a user-testable prerelease of
 metanorma-cli into end users' hands. The recipe is
-`${CLAUDE_PLUGIN_ROOT}/3-release-wave.md` § "Act 2"; read docs 1-6 plus
-that section first. The goal to keep in view at every step: end users
-compile THEIR documents on this cli and report findings while nothing is
-live.
+`${CLAUDE_PLUGIN_ROOT}/3-release-wave.md` § "Act 2"; the paste-ready
+form is Prompt A of `${CLAUDE_PLUGIN_ROOT}/9-prerelease-prompt.md`.
+Read docs 1-6 plus that section first. The goal to keep in view at
+every step: end users compile THEIR documents on this cli and report
+findings while nothing is live.
 
 Sequence:
 1. Version: the argument, in the fleet's `.pre.` date form. Refuse and
