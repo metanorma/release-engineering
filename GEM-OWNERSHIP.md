@@ -1,0 +1,260 @@
+# Gem ownership in the released bundle
+
+Classification of every non-platform gem in the metanorma Docker bundle
+(`metanorma-debian/Gemfile.lock`, 2026-11-16), by the published gemspec's
+authors. **RIBOSE** = maintained within the Ribose ecosystem (metanorma,
+relaton, lutaml, pubid, fontist, glossarist, leptris, claricle, riposte
+families) — these are the gems the release waves cut. **external** =
+third-party gems we depend on but never release.
+
+Note: within RIBOSE, release OWNERSHIP is further split by team — the
+metanorma team does not release relaton, pubid, fontist, glossarist, or
+lutaml; those families release themselves (see the Tier 0 rule in
+1-overview.md).
+
+## RIBOSE-maintained (95 gems)
+
+- `amath`
+- `asciiunits`
+- `cabriolet`
+- `canon`
+- `cnccs`
+- `coradoc`
+- `ea`
+- `emf`
+- `emfsvg`
+- `excavate`
+- `fontisan`
+- `fontist`
+- `fractor`
+- `gb-agencies`
+- `glossarist`
+- `html2doc`
+- `ieee-idams`
+- `isodoc`
+- `isodoc-i18n`
+- `isoics`
+- `latexmath`
+- `lens_core`
+- `libpng`
+- `loc_mods`
+- `lutaml-hal`
+- `lutaml-jsonschema`
+- `lutaml-lml`
+- `lutaml-model`
+- `lutaml-openapi`
+- `lutaml-path`
+- `lutaml-store`
+- `lutaml-uml`
+- `metanorma`
+- `metanorma-bipm`
+- `metanorma-cc`
+- `metanorma-cli`
+- `metanorma-core`
+- `metanorma-document`
+- `metanorma-gb`
+- `metanorma-generic`
+- `metanorma-iec`
+- `metanorma-ieee`
+- `metanorma-ietf`
+- `metanorma-ietf-data`
+- `metanorma-iho`
+- `metanorma-iso`
+- `metanorma-itu`
+- `metanorma-jis`
+- `metanorma-m3aawg`
+- `metanorma-mirror`
+- `metanorma-ogc`
+- `metanorma-oiml`
+- `metanorma-plateau`
+- `metanorma-plugin-glossarist`
+- `metanorma-plugin-lutaml`
+- `metanorma-plugin-openapi`
+- `metanorma-plugin-plantuml`
+- `metanorma-release`
+- `metanorma-ribose`
+- `metanorma-standoc`
+- `metanorma-taste`
+- `metanorma-un`
+- `metanorma-utils`
+- `mml`
+- `mn-requirements`
+- `mn2pdf`
+- `mnconvert`
+- `moxml`
+- `niso-jats`
+- `oasis-etm`
+- `ogc-gml`
+- `omml`
+- `omnizip`
+- `oscal`
+- `plane1converter`
+- `plurimath`
+- `png_conform`
+- `postscript`
+- `postsvg`
+- `pubid`
+- `relaton`
+- `relaton-iev`
+- `rfcxml`
+- `sts`
+- `suma`
+- `svg_conform`
+- `tbx`
+- `umath`
+- `unibuf`
+- `unitsdb`
+- `unitsml`
+- `uniword`
+- `vectory`
+- `w3c_api`
+- `xmi`
+
+## External third-party (142 gems)
+
+- `activesupport` — David Heinemeier Hansson | 8.1.4.1
+- `addressable` — Bob Aman | 2.9.2
+- `algolia` — https://alg.li/support | 3.50.0
+- `asciidoctor` — Dan Allen, Sarah White, Ryan Waldron, Jason Porter
+- `base64` — Yusuke Endoh | 0.3.0
+- `bcp47_spec` — Igor Justino | 0.2.1
+- `benchmark` — Yukihiro Matsumoto | 0.5.0
+- `benchmark-ips` — Evan Phoenix | 2.15.1
+- `bibtex-ruby` — Sylvester Keil | 6.2.0
+- `bigdecimal` — Kenta Murata, Zachary Scott, Shigeo Kobayashi | 4.
+- `bindata` — Dion Mendel | 3.0.1
+- `brotli` — miyucy | 0.9.3
+- `builder` — Jim Weirich, Aaron Patterson | 3.3.0
+- `camertron-eprun` — Ayumu Nojima (野島 歩), Martin J. Dürst, Cameron Dutr
+- `cldr-plurals-runtime-rb` — Cameron Dutro | 1.2.0
+- `cliver` — Ryan Biesemeyer | 0.3.2
+- `concurrent-ruby` — Jerry D'Antonio, Petr Chalupa, The Ruby Concurrenc
+- `connection_pool` — Mike Perham, Damian Janowski | 3.0.2
+- `crass` — Ryan Grove | 1.0.8
+- `css_parser` — Alex Dunae | 3.4.0
+- `csv` — James Edward Gray II, Kouhei Sutou | 3.3.7
+- `diff-lcs` — Austin Ziegler | 2.0.0
+- `domain_name` — Akinori MUSHA | 0.7.20261031
+- `down` — Janko Marohnić | 5.6.2
+- `drb` — Masatoshi SEKI | 2.2.3
+- `ebnf` — Gregg Kellogg | 2.6.0
+- `faraday` — @technoweenie, @iMacTia, @olleolleolle | 2.15.1
+- `faraday-follow_redirects` — Sebastian Cohnen | 0.5.0
+- `faraday-net_http` — Jan van der Pas | 3.5.0
+- `faraday-net_http_persistent` — Mike Rogers | 2.3.1
+- `faraday-retry` — Mattia Giuffrida | 2.4.0
+- `ferrum` — Dmitry Vorotilin | 0.20.1
+- `fiber-storage` — Samuel Williams | 1.0.1
+- `fiddle` — Aaron Patterson, SHIBATA Hiroshi | 1.1.8
+- `fuzzy_match` — Seamus Abshere | 2.1.0
+- `git` — Scott Chacon and others | 6.0.0
+- `google-protobuf` — Protobuf Authors | 4.36.2
+- `graphql` — Robert Mosolgo | 2.6.15
+- `graphql-client` — GitHub | 0.26.0
+- `hana` — Aaron Patterson | 1.3.7
+- `hollaback` — Kevin Newton | 0.1.1
+- `htmlentities` — Paul Battley | 4.4.2
+- `http-cookie` — Akinori MUSHA, Aaron Patterson, Eric Hodel, Mike D
+- `i18n` — Sven Fuchs, Joshua Harvey, Matt Aimonetti, Stephan
+- `image_size` — Keisuke Minami, Ivan Kuchin | 3.6.0
+- `io-console` — Nobu Nakada | 0.9.5
+- `iso-639` — William Melody | 0.3.8
+- `iso639` — Ryan McGeary | 1.4.0
+- `japanese_calendar` — Ryo Yamamoto | 0.4.2
+- `json` — Daniel Luz | 3.1.0
+- `json-canonicalization` — Gregg Kellogg | 1.0.0
+- `json-ld` — Gregg Kellogg | 3.3.2
+- `json_schemer` — David Harsha | 2.5.0
+- `latex-decode` — Sylvester Keil | 0.5.0
+- `link_header` — Mike Burrows | 0.0.8
+- `liquid` — Tobias Lütke | 5.14.0
+- `logger` — Naotoshi Seo, SHIBATA Hiroshi | 1.7.0
+- `marcel` — Tom Ward | 2.1.0
+- `matrix` — Marc-Andre Lafortune | 0.4.3
+- `mechanize` — Eric Hodel, Aaron Patterson, Mike Dalessio, Akinor
+- `memo_wise` — Panorama Education, Jacob Evelyn, Jemma Issroff, M
+- `mime-types` — Austin Ziegler | 3.7.0
+- `mime-types-data` — Austin Ziegler | 3.2026.1103
+- `mini_portile2` — Luis Lavena, Mike Dalessio, Lars Kanis | 2.8.9
+- `minitest` — Ryan Davis | 6.1.0
+- `multi_json` — Michael Bleigh, Josh Kalderimis, Erik Berlin, Pave
+- `net-http` — NARUSE, Yui | 0.10.0
+- `net-http-digest_auth` — Eric Hodel | 1.4.1
+- `net-http-persistent` — Eric Hodel | 4.0.8
+- `net-protocol` — Yukihiro Matsumoto | 0.4.0
+- `nkf` — NARUSE Yui, Charles Oliver Nutter | 0.3.0
+- `nokogiri-styles` — Sijmen Mulder | 0.1.2
+- `octokit` — Wynn Netherland, Erik Michaels-Ober, Clint Shryock
+- `ostruct` — Marc-Andre Lafortune | 0.6.3
+- `ox` — Peter Ohler | 2.14.29
+- `paint` — Jan Lelis | 2.3.0
+- `parallel` — Michael Grosser | 2.3.0
+- `parslet` — Kaspar Schiess | 2.0.0
+- `plist` — Ben Bleything, Patrick May | 3.7.2
+- `premailer` — Alex Dunae | 1.33.0
+- `process_executer` — James Couball | 4.1.2
+- `public_suffix` — Simone Carletti | 7.0.5
+- `racc` — Minero Aoki, Aaron Patterson | 1.8.1
+- `rack` — Leah Neukirchen | 3.2.8
+- `rainbow` — Marcin Kulik, Olle Jonsson | 3.1.1
+- `rake` — Hiroshi SHIBATA, Eric Hodel, Jim Weirich | 13.4.2
+- `rake-compiler-dock` — Lars Kanis | 1.12.0
+- `rb_sys` — Ian Ker-Seymer | 0.9.130
+- `rchardet` — Michael Grosser, Jeff Hodges | 1.10.2
+- `rdf` — Arto Bendiken, Ben Lavender, Gregg Kellogg | 3.3.4
+- `rdf-aggregate-repo` — Gregg Kellogg | 3.3.0
+- `rdf-turtle` — Gregg Kellogg | 3.3.1
+- `rdf-xsd` — Gregg, Kellogg | 3.3.0
+- `readline` — aycabta | 0.0.4
+- `regexp_parser` — Ammar Ali, Janosch Müller | 2.13.1
+- `reline` — aycabta | 0.7.0
+- `reverse_markdown` — Johannes Opper | 3.1.0
+- `rexml` — Kouhei Sutou | 3.4.4
+- `roman-numerals` — Andrew Vos | 0.3.0
+- `rouge` — Jeanine Adkisson | 5.1.0
+- `ruby-graphviz` — Gregoire Lejeune | 1.2.5
+- `ruby-progressbar` — thekompanee, jfelchner | 1.13.0
+- `rubyntlm` — Kohei Kajimoto, Paul Morton | 0.6.8
+- `rubyzip` — Robert Haines, John Lees-Miller, Alexander Simonov
+- `sassc-embedded` — なつき | 1.80.10
+- `sawyer` — Rick Olson, Wynn Netherland | 0.9.3
+- `scanf` — David Alan Black | 1.0.0
+- `securerandom` — Tanaka Akira | 0.4.1
+- `shacl` — Gregg Kellogg | 0.4.3
+- `simpleidn` — Morten Møller Riis | 0.3.0
+- `singleton` — Yukihiro Matsumoto | 0.3.0
+- `socksify` — Stephan Maka, Andrey Kouznetsov, Christopher Thorp
+- `sparql` — Gregg Kellogg, Arto Bendiken | 3.3.2
+- `sparql-client` — Arto Bendiken, Ben Lavender, Gregg Kellogg | 3.3.0
+- `ssrf_filter` — Arkadiy Tetelman | 1.6.0
+- `sterile` — Patrick Hogan | 1.0.27
+- `strscan` — Minero Aoki, Sutou Kouhei, Charles Oliver Nutter |
+- `sxp` — Arto Bendiken, Gregg Kellogg | 2.0.0
+- `sys-proctable` — Daniel J. Berger | 1.3.0
+- `table_tennis` — Adam Doppelt | 1.0.0
+- `thor` — Yehuda Katz, José Valim | 1.5.0
+- `thor-hollaback` — Kevin Newton | 0.2.1
+- `thread_safe` — Charles Oliver Nutter, thedarkone | 0.3.6
+- `timeout` — Yukihiro Matsumoto | 0.6.1
+- `tokenizer` — Andrei Beliankou | 0.3.0
+- `track_open_instances` — James Couball | 0.1.15
+- `tsort` — Tanaka Akira | 0.2.0
+- `twitter_cldr` — Cameron Dutro | 6.14.0
+- `tzinfo` — Philip Ross | 2.0.6
+- `tzinfo-data` — Philip Ross | 1.2026.6
+- `unicode-display_width` — Jan Lelis | 3.3.0
+- `unicode-emoji` — Jan Lelis | 4.3.0
+- `unicode-name` — Jan Lelis | 1.15.1
+- `unicode-types` — Jan Lelis | 1.12.0
+- `uri` — Akira Yamada | 1.1.2
+- `uuidtools` — Bob Aman | 3.0.0
+- `webrick` — TAKAHASHI Masayoshi, GOTOU YUUZOU, Eric Wong | 1.9
+- `webrobots` — Akinori MUSHA | 0.1.2
+- `websocket-driver` — James Coglan | 0.8.2
+- `websocket-extensions` — James Coglan | 0.1.5
+- `word-to-markdown` — Ben Balter | 1.2.1
+- `yaml` — Aaron Patterson, SHIBATA Hiroshi | 0.4.0
+
+Regenerate: parse the lock's non-platform gem lines, fetch each gem's
+latest version from the rubygems API, classify by the authors field
+(re-run when the wave changes the bundle).
