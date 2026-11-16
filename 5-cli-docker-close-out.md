@@ -93,6 +93,10 @@ dispatch the docker build workflow manually and say so in the report.
    announcement comment closes the tracker. Include the
    version, the bundled gem-wave highlights, the Docker image tag, and links
    to the GitHub Release and the blog post.
+3b. **Ribose-managed gem ledger on the tracker**: post the resolved versions
+   of all 95 Ribose-managed gems (grouped by org per `GEM-OWNERSHIP.md`),
+   extracted from the frozen bundle at the wave's docker tag, marking the
+   gems released in the wave (recipe in `wave-tracker-template.md`).
 4. **metanorma.org blog post**: add
    `_posts/YYYY-MM-DD-metanorma-cli-X.Y.Z-release.adoc` to metanorma.org (see
    the 1.11.3 post for the front-matter template) and PR it so the site

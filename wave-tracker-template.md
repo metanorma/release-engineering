@@ -59,6 +59,20 @@ flowchart LR
 | Gem | Version | Released at | Notes |
 |---|---|---|---|
 
+### Ribose-managed gem versions (full ledger)
+
+Every wave issue carries the resolved version of **all 95 Ribose-managed
+gems** (per `GEM-OWNERSHIP.md`, grouped by org), not only the gems released
+in this wave. Source of truth: the frozen bundle at the wave's docker tag —
+
+```
+git show v<VERSION>:metanorma-debian/Gemfile.lock | grep -E '^    <gem> \('
+```
+
+Post as one comment on the wave issue: a table per org (`gem | version`),
+marking the gems released during the wave. Gems absent from the debian
+bundle fall back to their current rubygems version, noted as such.
+
 ### Reports
 (per-document validation catalogs, PDF confirmations, container confirmations)
 ```
