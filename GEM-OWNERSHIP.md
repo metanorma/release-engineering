@@ -11,9 +11,10 @@ Tier 0 rule: the metanorma team releases only the `metanorma` org's gems;
 the relaton, lutaml, pubid, fontist, glossarist, leptris and claricle orgs
 release their own.
 
-## metanorma (47 gems)
+## metanorma (48 gems)
 
 - `cnccs`
+- `metanorma-cli`
 - `fractor`
 - `gb-agencies`
 - `html2doc`
@@ -131,9 +132,6 @@ release their own.
 - `glossarist`
 - `tbx`
 
-## metanorma (52 gems)
-
-- `metanorma-cli`
 
 ## pubid (1 gems)
 
