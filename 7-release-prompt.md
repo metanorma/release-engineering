@@ -51,8 +51,21 @@ TIERS:
 5. docker: release-tag.yml (next_version=<cli>) → tag → build-push →
    ALL per-flavor smokes green; tebako: check tpkg-registry.yaml has the
    payload (tebako-packages#issue if not) → sync-payload.rb → build.
-6. Close-out: downstream issue posts, release-process docs + memory update,
-   final report with every version and every PR.
+6. Registries + communications (a release is NOT done without these):
+   a. GitHub Releases: `gh release list` on EVERY released repo must show
+      the new tag with the correct Latest marker; if the release flow
+      pushed the tag without creating the Release object, backfill
+      (`gh release create vX.Y.Z --latest --notes-file ...`; backfill
+      oldest-first, `--latest` ONLY on the newest).
+   b. metanorma/versions: the released Docker container's Gemfile.lock is
+      published there (actions-mn/setup consumes it).
+   c. Announcement at metanorma/discussions (the fleet announcements
+      repo — Discussions are disabled on individual gem repos).
+   d. metanorma.org blog post: _posts/YYYY-MM-DD-metanorma-cli-X.Y.Z-release.adoc.
+7. Close-out: downstream issue posts (per-issue, independent), reporter
+   per-issue confirmations with release pointers + verification evidence,
+   release-process docs + memory update, final report with every version
+   and every PR.
 
 FULL PROPER REPORT (mandatory Tier-6 deliverable, posted where the
 reporter/consumers can see it):
