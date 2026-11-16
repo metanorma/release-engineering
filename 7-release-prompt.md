@@ -1,7 +1,10 @@
 # 7 — The release prompt (paste-ready for the next validated release)
 
-Run the wave from a clean clone-per-repo posture. This prompt assumes
-`~/src/mn/release-process/{1-6}.md` are read first.
+Run the wave from a clean clone-per-repo posture. The prompts in this
+repo are location-independent: clone `metanorma/release-process`
+anywhere (or use an existing checkout); below, `<RELEASE-PROCESS>` is
+that checkout's path, and the prompt reads its docs `{1-6}.md` from
+there.
 
 ```
 GOAL: run a fully-validated metanorma release wave, tiers 1-6, bottom-up.

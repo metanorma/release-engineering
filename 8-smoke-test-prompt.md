@@ -8,7 +8,9 @@ dispatching anything.
 ```
 SMOKE TEST — DRY RUN of the metanorma release flow (dispatch NOTHING)
 
-Read ~/src/mn/release-process/README.md, then docs 1-6 in order, then
+Clone https://github.com/metanorma/release-process anywhere (skip if you
+already hold a checkout); `<RELEASE-PROCESS>` below is its path. Read
+`<RELEASE-PROCESS>/README.md`, then docs 1-6 in order, then
 execute the fenced prompt in 7-release-prompt.md under the overrides
 below. This is a rehearsal: prove the flow end to end with ZERO side
 effects. Where this prompt and 7-release-prompt.md conflict, THIS wins.

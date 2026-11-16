@@ -78,7 +78,56 @@ released behavior), and `/release-prerelease` brings the maintainer two
 approval points before it posts anything: the derived gemspec lock plan
 and the call-for-testing draft.
 
+## How the flow fits together
+
+A wave runs bottom-up; every gem's dependencies must already exist at
+their released versions before the tier that needs them. Each arrow
+into a gate is evidence-checked — green means verified, not assumed.
+The wave tracker mirrors all of it as it happens.
+
+```mermaid
+flowchart TB
+    SC["State check<br>released vs main-ahead, release manifest"] --> T1
+    T1["Tier 1 — leaf libs<br>release.yml + rubygems verify"] -->|"deps released first"| T2
+    T2["Tier 2 — flavors<br>patch-bump from version.rb"] --> T3
+    T3{"Tier 3 gate — LOCAL<br>ALL mn-samples render green<br>on released gems + cli git main"}
+    T3 -->|"red: fix at source, re-run"| T2
+    T3 -->|"green"| T4
+    T4["Tier 4 — metanorma-cli release"] --> T5
+    T5["Tier 5 — docker build-push + per-flavor smokes<br>publish-log grep + Hub digest + float guard"] --> T6
+    T6["Tier 6 — registries + comms<br>GitHub Releases Latest, versions lockfile,<br>ledger + changelog on the tracker,<br>announcement, blog"]
+    T6 --> DONE["Wave complete<br>tracker closed, FULL PROPER REPORT posted"]
+```
+
+The staged program splits one wave into three acts, holding the cli
+gate so end users test real documents on a prerelease before the fleet
+goes live. Act 2 can iterate as many times as the testing window
+demands; Act 3 promotes instead of re-releasing.
+
+```mermaid
+flowchart LR
+    A["Act 1 — /release-fleet<br>tiers 1-3 run<br>cli gate HELD, tracker open"] --> B["Act 2 — /release-prerelease<br>cli .pre. cut + minimal gemspec locks<br>(owner-approved), docker pre image,<br>call for testing"]
+    B -->|"fleet moved mid-window<br>(new floors)"| B2["iterate — /release-prerelease-upgrade<br>re-derive locks, re-gate,<br>next dated prerelease, same thread"]
+    B2 --> B
+    B -->|"window closes,<br>owner states final version"| C["Act 3 — /release <final><br>locks stand, docker final + tebako,<br>announcement + blog,<br>tracker closed"]
+```
+
+Dependency direction in one line: tier-1 libs → flavors → the local
+samples gate → cli (its gemspec locks `~>` the gate-validated minors)
+→ docker → registries and communications. Nothing skips a gate, and
+the prerelease channel is opt-in — live users never see a `.pre.`
+version unless they ask for it.
+
 ## Start here (without the plugin)
+
+**Copy/paste convention (all prompts, one rule):** clone
+`metanorma/release-process` anywhere — the path is yours to choose.
+Open the prompt doc you need (`7-release-prompt.md` for a full wave,
+`8-smoke-test-prompt.md` for the dry run, `9-prerelease-prompt.md`
+Prompts A/B for the prerelease acts), copy its fenced block into a
+Claude Code session, replace `<RELEASE-PROCESS>` with your checkout
+path, and fill the version argument. The prompt reads everything else
+from that checkout — nothing is locked to any one machine.
 
 1. Read the docs in order: `1-overview.md`, `2-pr-wave.md`,
    `3-release-wave.md`, `4-local-samples-validation.md`,
