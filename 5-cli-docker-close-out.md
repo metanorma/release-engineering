@@ -77,6 +77,26 @@ dispatch the docker build workflow manually and say so in the report.
    not update but the run says success, the publish job was skipped (check the
    job list, not just the run conclusion).
 
+## packed channel (Tier 5b)
+
+The packed (tebako) distribution is a first-class channel; a stable cli
+cut must land it before close-out.
+
+1. A stable metanorma-cli publish auto-dispatches the packed payload
+   sync (ci#537: release.yml sends the metanorma/metanorma-cli
+   repository_dispatch; packed-metanorma#309 resolves the version from
+   the tag ref). The packed repo's prepare job lands the versions.yaml
+   roll BY PR; merge that PR, and the merge presses the payloads and
+   cuts the packed release.
+2. If the dispatch did not fire (prerelease, older chain), press
+   manually:
+   `gh workflow run build.yml -R metanorma/packed-metanorma --ref main -f payload_version=<released>`
+   then merge the roll PR it opens.
+3. Verify the packed release exists with the full asset set (payload
+   images per triplet, SHA256SUMS, installers) and that the Windows MSI
+   install rehearsal went green. A red rehearsal blocks close-out; do
+   not announce over it.
+
 ## close-out (Tier 6)
 
 1. Close metanorma-iho#563 (the fontist→cli→docker chain ticket) with the
@@ -86,7 +106,9 @@ dispatch the docker build workflow manually and say so in the report.
    #90 routed via mn2pdf#464 to Intelligent2013, #105 verified), the release
    versions carrying them, and the ISO verification results.
 3. **Announce at metanorma/discussions**: post the release announcement in
-   the metanorma/discussions repository (the fleet's announcements forum —
+   the metanorma/discussions repository (gate: every distribution
+   channel is green first: gem, Docker, packed; announcements never
+   precede a channel) (the fleet's announcements forum —
    Discussions are disabled on the individual gem repos). The wave's
    TRACKER is also a Discussion there, opened at `planned` from
    `wave-tracker-template.md` and updated at every gate — the final
